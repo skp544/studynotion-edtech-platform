@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import connectToDB from "./config/database.js";
+import authRoute from "./routes/auth-route.js";
 
 dotenv.config();
 
@@ -14,6 +15,10 @@ app.use(express.urlencoded({ extended: true }));
 // db connection
 
 connectToDB();
+
+/// connections
+
+app.use("/api/v1/auth", authRoute);
 
 const PORT = process.env.PORT || 8000;
 
