@@ -211,7 +211,7 @@ export const login = async (req, res) => {
     }
 
     const jwtPayload = {
-      userId: user._id,
+      id: user._id,
       email: user.email,
       role: user.accountType,
     };
@@ -254,7 +254,7 @@ export const login = async (req, res) => {
   }
 };
 
-exports.changePassword = async (req, res) => {
+export const changePassword = async (req, res) => {
   try {
     const userDetails = await User.findById(req.user.id);
 
