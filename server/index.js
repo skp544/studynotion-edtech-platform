@@ -8,6 +8,7 @@ import cloudinaryConnect from "./config/cloudinary.js";
 import courseRoute from "./routes/course-route.js";
 import fileUpload from "express-fileupload";
 import sectionRoute from "./routes/section-route.js";
+import subSectionRoute from "./routes/sub-section-route.js";
 
 dotenv.config();
 
@@ -37,6 +38,7 @@ app.use("/api/v1/auth", authRoute);
 app.use("/api/v1/category", categoryRoute);
 app.use("/api/v1/course", courseRoute);
 app.use("/api/v1/section", sectionRoute);
+app.use("/api/v1/sub-section", subSectionRoute);
 
 const PORT = process.env.PORT || 8000;
 
