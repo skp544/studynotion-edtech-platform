@@ -10,6 +10,7 @@ import fileUpload from "express-fileupload";
 import sectionRoute from "./routes/section-route.js";
 import subSectionRoute from "./routes/sub-section-route.js";
 import contactUsRoute from "./routes/contactus-route.js";
+import courseProgressRoute from "./routes/course-progress-route.js";
 
 dotenv.config();
 
@@ -35,12 +36,13 @@ cloudinaryConnect();
 
 /// connections
 
-app.use("/api/v1/auth", authRoute);
-app.use("/api/v1/category", categoryRoute);
-app.use("/api/v1/course", courseRoute);
+app.use("/api/v1/auth", authRoute); // testtes
+app.use("/api/v1/category", categoryRoute); // tested
+app.use("/api/v1/course", courseRoute); // tesred
 app.use("/api/v1/section", sectionRoute);
 app.use("/api/v1/sub-section", subSectionRoute);
 app.use("/api/v1/contact", contactUsRoute);
+app.use("/course-progress", courseProgressRoute);
 
 const PORT = process.env.PORT || 8000;
 
