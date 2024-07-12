@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import mailSender from "../utils/mailSender";
+import mailSender from "../utils/mailSender.js";
 
 const otpSchema = new mongoose.Schema({
   email: {
@@ -26,7 +26,7 @@ async function sendVerificationEmail(email, otp) {
       otp
     );
 
-    console.log("Email Sent Successfully", mailResponse);
+    console.log("Email Sent Successfully");
   } catch (error) {
     console.log("Failed to send email");
     console.log(error);

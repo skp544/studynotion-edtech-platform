@@ -1,10 +1,11 @@
 import jwt from "jsonwebtoken";
-import User from "../models/user-model";
+import User from "../models/user-model.js";
 
 export const isAuth = async (req, res, next) => {
   try {
     const token =
-      req.cookies.token || req.header("Authorisation").replace("Bearer ", "");
+      req?.cookies?.token ||
+      req.header("Authorization")?.replace("Bearer ", "");
 
     if (!token) {
       return res.status(404).json({
@@ -17,9 +18,7 @@ export const isAuth = async (req, res, next) => {
     try {
       const decode = await jwt.verify(token, process.env.JWT_SECRET);
 
-      console.log("decode", decode);
-
-      const user = await User.findOne({ _id: decode.email });
+      const user = await User.findOne({ _id: decode.id });
 
       if (!user) {
         return res
@@ -28,6 +27,8 @@ export const isAuth = async (req, res, next) => {
       }
 
       req.user = decode;
+
+      next();
     } catch (error) {
       return res.status(401).json({
         success: false,

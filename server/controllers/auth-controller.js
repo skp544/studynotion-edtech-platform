@@ -1,10 +1,11 @@
-import OTP from "../models/OTP-model";
-import User from "../models/user-model";
+import OTP from "../models/OTP-model.js";
+import User from "../models/user-model.js";
 import otpGenerator from "otp-generator";
 import bcrypt from "bcrypt";
-import Profile from "../models/profile-model";
+import Profile from "../models/profile-model.js";
 import jwt from "jsonwebtoken";
-import mailSender from "../utils/mailSender";
+import mailSender from "../utils/mailSender.js";
+import crypto from "crypto";
 
 // send otp
 export const sendOTP = async (req, res) => {
@@ -94,7 +95,7 @@ export const signUp = async (req, res) => {
 
     // checking password
 
-    if (!password !== confirmPassword) {
+    if (password !== confirmPassword) {
       return res.status(400).json({
         success: false,
         message: "Password and Confirm Password doest not matched!",
@@ -119,8 +120,6 @@ export const signUp = async (req, res) => {
       .sort({ createdAt: 1 })
       .limit(1);
 
-    console.log("recent otp ", recentOtp);
-
     // valiate otp
 
     if (recentOtp.length == 0) {
@@ -143,7 +142,7 @@ export const signUp = async (req, res) => {
     accountType === "Instructor" ? (approved = false) : (approved = true);
 
     // creating profile details
-    const profileDetails = await Profile({
+    const profileDetails = await Profile.create({
       gender: null,
       dateOfBirth: null,
       about: null,
@@ -241,6 +240,11 @@ export const login = async (req, res) => {
           lastName: user.lastName,
           email: user.email,
           profileUrl: user.profileUrl,
+          profileId: user.additionalDetails._id,
+          gender: user.additionalDetails.gender,
+          contactNumber: user.additionalDetails.contactNumber,
+          dateOfBirth: user.additionalDetails.dateOfBirth,
+          about: user.additionalDetails.about,
         },
         token,
       });
@@ -293,8 +297,6 @@ export const changePassword = async (req, res) => {
         updatedUserDetails.email,
         `Password Update Successfully for ${updatedUserDetails.firstName} ${updatedUserDetails.lastName}`
       );
-
-      console.log("Email Response", emailResponse);
     } catch (error) {
       console.log("Error Occurred while sending email");
 
@@ -304,7 +306,7 @@ export const changePassword = async (req, res) => {
       });
     }
 
-    console.log("Email Sent Successfully: ", emailResponse.response);
+    console.log("Email Sent Successfully: ");
 
     return res.status(200).json({
       success: true,
@@ -343,7 +345,6 @@ export const resetPasswordToken = async (req, res) => {
       },
       { new: true }
     );
-    console.log("DETAILS: ", updatedDetails);
 
     const url = `http://localhost:5173/update-password/${token}`;
     await mailSender(
@@ -355,6 +356,7 @@ export const resetPasswordToken = async (req, res) => {
     return res.json({
       success: true,
       message: "Email sent successfully, please check Email",
+      url,
     });
   } catch (error) {
     console.log("Error in reset password token controller");
