@@ -4,6 +4,9 @@ import cors from "cors";
 import connectToDB from "./config/database.js";
 import authRoute from "./routes/auth-route.js";
 import categoryRoute from "./routes/category-route.js";
+import cloudinaryConnect from "./config/cloudinary.js";
+import courseRoute from "./routes/course-route.js";
+import fileUpload from "express-fileupload";
 
 dotenv.config();
 
@@ -13,14 +16,25 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+app.use(
+  fileUpload({
+    useTempFiles: true,
+    tempFileDir: "/tmp",
+  })
+);
+
 // db connection
 
 connectToDB();
+// cloudinary connection
+
+cloudinaryConnect();
 
 /// connections
 
 app.use("/api/v1/auth", authRoute);
 app.use("/api/v1/category", categoryRoute);
+app.use("/api/v1/course", courseRoute);
 
 const PORT = process.env.PORT || 8000;
 
