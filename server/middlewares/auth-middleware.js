@@ -47,7 +47,7 @@ export const isAuth = async (req, res, next) => {
 
 export const isStudent = async (req, res, next) => {
   try {
-    if (req.user.accountType !== "Student") {
+    if (req.user.role !== "Student") {
       return res.status(401).json({
         success: false,
         message: "This is protected route for students only, Try again",
@@ -67,7 +67,7 @@ export const isStudent = async (req, res, next) => {
 
 export const isInstructor = async (req, res, next) => {
   try {
-    if (req.user.accountType !== "Instructor") {
+    if (req.user.role !== "Instructor") {
       return res.status(401).json({
         success: false,
         message: "This is protected route for instructor only, Try again",
@@ -87,7 +87,7 @@ export const isInstructor = async (req, res, next) => {
 
 export const isAdmin = async (req, res, next) => {
   try {
-    if (req.user.accountType !== "Admin") {
+    if (req.user.role !== "Admin") {
       return res.status(401).json({
         success: false,
         message: "This is protected route for Admin only, Try again",

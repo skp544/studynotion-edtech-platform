@@ -8,10 +8,12 @@ const categorySchema = new mongoose.Schema({
   description: {
     type: String,
   },
-  course: {
-    type: mongoose.Types.ObjectId,
-    ref: "Course",
-  },
+  course: [
+    {
+      type: mongoose.Types.ObjectId,
+      ref: "Course",
+    },
+  ],
 });
 
 const Category = mongoose.model("Category", categorySchema);
