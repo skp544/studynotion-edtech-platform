@@ -9,6 +9,7 @@ import courseRoute from "./routes/course-route.js";
 import fileUpload from "express-fileupload";
 import sectionRoute from "./routes/section-route.js";
 import subSectionRoute from "./routes/sub-section-route.js";
+import contactUsRoute from "./routes/contactus-route.js";
 
 dotenv.config();
 
@@ -39,6 +40,7 @@ app.use("/api/v1/category", categoryRoute);
 app.use("/api/v1/course", courseRoute);
 app.use("/api/v1/section", sectionRoute);
 app.use("/api/v1/sub-section", subSectionRoute);
+app.use("/api/v1/contact", contactUsRoute);
 
 const PORT = process.env.PORT || 8000;
 
