@@ -6,6 +6,7 @@ import Profile from "../models/profile-model.js";
 import jwt from "jsonwebtoken";
 import mailSender from "../utils/mailSender.js";
 import crypto from "crypto";
+import passwordUpdated from "../mail/passwordUpdate.js";
 
 // send otp
 export const sendOTP = async (req, res) => {
@@ -292,7 +293,11 @@ export const changePassword = async (req, res) => {
     try {
       const emailResponse = await mailSender(
         updatedUserDetails.email,
-        `Password Update Successfully for ${updatedUserDetails.firstName} ${updatedUserDetails.lastName}`
+        "Password for your account has been updated",
+        passwordUpdated(
+          updatedUserDetails.email,
+          `Password updated successfully for ${updatedUserDetails.firstName} ${updatedUserDetails.lastName}`
+        )
       );
     } catch (error) {
       console.log("Error Occurred while sending email");
