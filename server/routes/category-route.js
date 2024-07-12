@@ -11,7 +11,9 @@ const router = express.Router();
 // /api/v1/category
 
 router.post("/create", isAuth, isAdmin, createCategory);
+
 router.get("/all-categories", showAllCategories);
+
 router.post("/get-category-details", categoryPageDetails);
 
 export default router;

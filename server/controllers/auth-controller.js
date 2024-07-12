@@ -29,8 +29,6 @@ export const sendOTP = async (req, res) => {
       lowerCaseAlphabets: false,
     });
 
-    console.log("OTP GENERATED: ", otp);
-
     // check unique otp or not
 
     let result = await OTP.findOne({ otp });
@@ -116,13 +114,11 @@ export const signUp = async (req, res) => {
 
     // check recent otp
 
-    const recentOtp = await OTP.findOne({ email })
-      .sort({ createdAt: 1 })
-      .limit(1);
+    const recentOtp = await OTP.find({ email }).sort({ createdAt: 1 }).limit(1);
 
     // valiate otp
 
-    if (recentOtp.length == 0) {
+    if (recentOtp.length === 0) {
       return res.status(400).json({
         success: false,
         message: "OTP Not Found",
@@ -156,6 +152,7 @@ export const signUp = async (req, res) => {
       email,
       password: hashedPassword,
       accountType,
+      approved,
       additionalDetails: profileDetails._id,
       profileUrl: `https://api.dicebear.com/5.x/initials/svg?seed=${firstName} ${lastName}`,
     });
@@ -355,7 +352,8 @@ export const resetPasswordToken = async (req, res) => {
 
     return res.json({
       success: true,
-      message: "Email sent successfully, please check Email",
+      message:
+        "Email Sent Successfully, Please Check Your Email to Continue Further",
       url,
     });
   } catch (error) {
