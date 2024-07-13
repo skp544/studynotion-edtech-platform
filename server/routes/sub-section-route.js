@@ -3,8 +3,8 @@ import {
   createSubSection,
   deleteSubSection,
   updateSubSection,
-} from "../controllers/sub-section-controller";
-import { isAuth, isInstructor } from "../middlewares/auth-middleware";
+} from "../controllers/sub-section-controller.js";
+import { isAuth, isInstructor } from "../middlewares/auth-middleware.js";
 
 const router = express.Router();
 
