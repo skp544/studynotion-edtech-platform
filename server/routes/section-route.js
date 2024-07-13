@@ -10,9 +10,9 @@ import { isAuth, isInstructor } from "../middlewares/auth-middleware.js";
 
 const router = express.Router();
 
-router.post("/create", isAuth, isInstructor, createSection);
+router.post("/create", isAuth, isInstructor, createSection); // tested
 
-router.put("/update", isAuth, isInstructor, updateSection);
+router.put("/update", isAuth, isInstructor, updateSection); // tested
 
 router.delete("/delete", isAuth, isInstructor, deleteSection);
 

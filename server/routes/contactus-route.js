@@ -3,6 +3,8 @@ import { contactUsController } from "../controllers/contactus-controller.js";
 
 const router = express.Router();
 
-router.post("/contact-us", contactUsController);
+// /api/v1/contact
+
+router.post("/contact-us", contactUsController); // tested
 
 export default router;

@@ -1,4 +1,5 @@
 import contactUsEmail from "../mail/contactFormRes.js";
+import mailSender from "../utils/mailSender.js";
 
 export const contactUsController = async (req, res) => {
   try {

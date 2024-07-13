@@ -124,7 +124,7 @@ export const signUp = async (req, res) => {
         success: false,
         message: "OTP Not Found",
       });
-    } else if (otp !== recentOtp.otp) {
+    } else if (otp !== recentOtp[0].otp) {
       return res
         .status(404)
         .json({ success: false, message: "OTP Not Matched!" });
