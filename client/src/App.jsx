@@ -1,6 +1,8 @@
 import { Route, Routes } from "react-router-dom";
 import Homepage from "./pages/Homepage";
 import Navbar from "./components/Navbar";
+import SignupPage from "./pages/SignupPage";
+import LoginPage from "./pages/LoginPage";
 
 const App = () => {
   return (
@@ -8,6 +10,8 @@ const App = () => {
       <Navbar />
       <Routes>
         <Route path="/" element={<Homepage />} />
+        <Route path="/sign-up" element={<SignupPage />} />
+        <Route path="/login" element={<LoginPage />} />
 
         <Route path="*" element={<Error />} />
       </Routes>
