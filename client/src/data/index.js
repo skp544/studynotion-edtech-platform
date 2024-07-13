@@ -168,6 +168,7 @@ export const timeLine = [
 ];
 
 export const BottomFooter = ["Privacy Policy", "Cookie Policy", "Terms"];
+
 export const Resources = [
   "Articles",
   "Blog",
@@ -178,7 +179,9 @@ export const Resources = [
   "Videos",
   "Workspaces",
 ];
+
 export const Plans = ["Paid memberships", "For students", "Business solutions"];
+
 export const Community = ["Forums", "Chapters", "Events"];
 
 export const FooterLink2 = [
@@ -237,5 +240,24 @@ export const FooterLink2 = [
       { title: "Full Catalog", link: "/full-catalog" },
       { title: "Beta Content", link: "/beta-content" },
     ],
+  },
+];
+
+export const NavbarLinks = [
+  {
+    title: "Home",
+    path: "/",
+  },
+  {
+    title: "Catalog",
+    // path: '/catalog',
+  },
+  {
+    title: "About Us",
+    path: "/about",
+  },
+  {
+    title: "Contact Us",
+    path: "/contact",
   },
 ];

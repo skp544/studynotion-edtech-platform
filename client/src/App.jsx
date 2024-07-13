@@ -8,6 +8,8 @@ const App = () => {
       <Navbar />
       <Routes>
         <Route path="/" element={<Homepage />} />
+
+        <Route path="*" element={<Error />} />
       </Routes>
     </div>
   );
