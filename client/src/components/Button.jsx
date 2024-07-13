@@ -9,6 +9,7 @@ const Button = ({ children, active, linkto }) => {
        ${
          active ? "bg-yellow-50 text-black" : "bg-richblack-800"
        } hover:shadow-none hover:scale-95 transition-all duration-200
+       w-fit
       
       `}
     >

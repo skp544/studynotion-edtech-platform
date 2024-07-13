@@ -5,6 +5,11 @@ import Button from "../components/Button";
 import Banner from "../assets/images/banner.mp4";
 import CodeBlocks from "../components/CodeBlocks";
 import ExploreMore from "../components/ExploreMore";
+import TimelineSection from "../components/TimelineSection";
+import LearningLanguageSection from "../components/LearningLanguageSection";
+import InstructorSection from "../components/InstructorSection";
+import ReviewSlider from "../components/ReviewSlider";
+import Footer from "../components/Footer";
 
 const Homepage = () => {
   return (
@@ -121,6 +126,69 @@ const Homepage = () => {
         {/* explore more */}
         <ExploreMore />
       </div>
+
+      {/* section 2 */}
+      <div className="bg-pure-greys-5 text-pure-greys-700">
+        <div className="homepage_bg h-[320px]">
+          {/* explore full category section */}
+          <div className="mx-auto flex w-11/12 max-w-maxContent flex-col items-center justify-between gap-8">
+            <div className="lg:h-[150px]" />
+            <div className="flex flex-row gap-7 text-white lg:mt-8">
+              <Button active={true} linkto={"/sign-up"}>
+                <div className="flex items-center gap-2">
+                  Explore Full Catalog
+                  <FaArrowRight />
+                </div>
+              </Button>
+              <Button active={false} linkto={"/login"}>
+                Learn More
+              </Button>
+            </div>
+          </div>
+        </div>
+
+        <div className="mx-auto flex w-11/12 max-w-maxContent flex-col items-center justify-between gap-8">
+          {/* job that is in demand - section 1 */}
+          <div className="mb-10 mt-[-100px] flex flex-col justify-between gap-7 lg:mt-20 lg:flex-row lg:gap-0">
+            <div className=" text-4xl font-semibold lg:w-[45%]">
+              Get the skills you need for a{" "}
+              <HighlightText text={"job that is in demand."} />
+            </div>
+            <div className="flex flex-col items-start gap-10 lg:w-[40%]">
+              <div className="text-[16px]">
+                The modern StudyNotion is the dictates its own terms. Today, to
+                be a competitive specialist requires more than professional
+                skills.
+              </div>
+              <Button active={true} linkto={"/sign-up"}>
+                <div className="">Learn More</div>
+              </Button>
+            </div>
+          </div>
+
+          {/* timeline section - 2 */}
+          <TimelineSection />
+
+          {/* Learning Language Section - Section 3 */}
+          <LearningLanguageSection />
+        </div>
+      </div>
+
+      {/* section 3 */}
+      <div className="relative mx-auto my-20 flex w-11/12 max-w-maxContent flex-col items-center justify-between gap-8 bg-richblack-900 text-white">
+        {/* Become a instructor section */}
+        <InstructorSection />
+
+        {/* reviews from other learner */}
+        <h1 className="text-center text-4xl font-semibold mt-8">
+          Reviews from other learners
+        </h1>
+        <ReviewSlider />
+      </div>
+
+      {/* footer */}
+
+      <Footer />
     </div>
   );
 };
