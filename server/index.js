@@ -11,6 +11,8 @@ import sectionRoute from "./routes/section-route.js";
 import subSectionRoute from "./routes/sub-section-route.js";
 import contactUsRoute from "./routes/contactus-route.js";
 import courseProgressRoute from "./routes/course-progress-route.js";
+import profileRoute from "./routes/profile-route.js";
+import ratingandReviewRoute from "./routes/rating-and-review-route.js";
 
 dotenv.config();
 
@@ -42,7 +44,9 @@ app.use("/api/v1/course", courseRoute); // tesred
 app.use("/api/v1/section", sectionRoute);
 app.use("/api/v1/sub-section", subSectionRoute);
 app.use("/api/v1/contact", contactUsRoute);
-app.use("/course-progress", courseProgressRoute);
+app.use("/api/v1/course-progress", courseProgressRoute);
+app.use("/api/v1/profile", profileRoute);
+app.use("/api/v1/rating-and-review", ratingandReviewRoute);
 
 const PORT = process.env.PORT || 8000;
 
