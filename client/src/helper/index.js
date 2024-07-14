@@ -7,3 +7,11 @@ export const catchError = (error) => {
 
   return { error: error.message || error };
 };
+
+export const formattedDate = (date) => {
+  return new Date(date).toLocaleDateString("en-US", {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  });
+};
