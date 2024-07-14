@@ -4,6 +4,10 @@ import { Link, useNavigate } from "react-router-dom";
 import useOnClickOutside from "../hooks/useOnClickOutside";
 import { AiOutlineCaretDown } from "react-icons/ai";
 import { VscDashboard, VscSignOut } from "react-icons/vsc";
+import { setToken } from "../redux/slices/authSlice";
+import { setUser } from "../redux/slices/profileSlice";
+import { resetCart } from "../redux/slices/cartSlice";
+import toast from "react-hot-toast";
 
 const ProfileDropdown = () => {
   const { user } = useSelector((state) => state.profile);
@@ -14,12 +18,23 @@ const ProfileDropdown = () => {
 
   useOnClickOutside(ref, () => setOpen(false));
 
+  const handleLogout = () => {
+    dispatch(setToken(null));
+    dispatch(setUser(null));
+    dispatch(resetCart());
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    setOpen(false);
+    toast.success("Logged Out");
+    navigate("/login");
+  };
+
   if (!user) return null;
   return (
     <button className="relative" onClick={() => setOpen(true)}>
       <div className="flex items-center gap-x-1">
         <img
-          src={user?.image}
+          src={user?.profileUrl}
           alt={`profile-${user?.firstName}`}
           className="aspect-square w-[30px] rounded-full object-cover"
         />
@@ -39,10 +54,7 @@ const ProfileDropdown = () => {
             </div>
           </Link>
           <div
-            // onClick={() => {
-            //   dispatch(logout(navigate));
-            //   setOpen(false);
-            // }}
+            onClick={handleLogout}
             className="flex w-full items-center gap-x-1 py-[10px] px-[12px] text-sm text-richblack-100 hover:bg-richblack-700 hover:text-richblack-25"
           >
             <VscSignOut className="text-lg" />

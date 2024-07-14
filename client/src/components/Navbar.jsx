@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { Link, matchPath, useLocation } from "react-router-dom";
 import logo from "../assets/logos/Logo-Full-Light.png";
-import { NavbarLinks } from "../data";
+import { ACCOUNT_TYPE, NavbarLinks } from "../data";
 import { BsChevronDown } from "react-icons/bs";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { useSelector } from "react-redux";
+import ProfileDropdown from "./ProfileDropdown";
 
 const Navbar = () => {
   const location = useLocation();

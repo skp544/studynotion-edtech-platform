@@ -2,6 +2,10 @@ import React, { useState } from "react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import { loginApi } from "../../apis/auth";
+import toast from "react-hot-toast";
+import { setToken } from "../../redux/slices/authSlice";
+import { setUser } from "../../redux/slices/profileSlice";
 
 const LoginForm = () => {
   const navigate = useNavigate();
@@ -21,8 +25,30 @@ const LoginForm = () => {
       [e.target.name]: e.target.value,
     }));
   };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const response = await loginApi(formData);
+
+    if (!response.success) {
+      return toast.error(response.message);
+    }
+
+    console.log(response);
+
+    dispatch(setToken(response.token));
+    dispatch(setUser(response.data));
+    localStorage.setItem("token", JSON.stringify(response.token));
+    localStorage.setItem("user", JSON.stringify(response.data));
+
+    navigate("/dashboard/my-profile");
+
+    toast.success(response.message);
+  };
+
   return (
-    <form className="mt-6 flex w-full flex-col gap-y-4">
+    <form className="mt-6 flex w-full flex-col gap-y-4" onSubmit={handleSubmit}>
       <label className="w-full">
         <p className="mb-1 text-[0.875rem] leading-[1.375rem] text-richblack-5">
           Email Address <sup className="text-pink-200">*</sup>
@@ -68,7 +94,7 @@ const LoginForm = () => {
         </span>
         <Link to="/forgot-password">
           <p className=" ml-auto max-w-max text-xs text-blue-100 hover:underline mt-2">
-            Forgot Password
+            Forgot Password?
           </p>
         </Link>
       </label>
