@@ -10,6 +10,7 @@ import MyProfile from "./pages/MyProfile";
 import UpdatePassword from "./pages/UpdatePassword";
 import About from "./pages/About";
 import ContactPage from "./pages/ContactPage";
+import Settings from "./pages/Settings";
 
 const App = () => {
   return (
@@ -36,6 +37,8 @@ const App = () => {
         {/* DASHBOARD */}
         <Route element={<Dashboard />}>
           <Route path="/dashboard/my-profile" element={<MyProfile />} />
+
+          <Route path="dashboard/settings" element={<Settings />} />
         </Route>
 
         <Route path="*" element={<Error />} />

@@ -1,15 +1,38 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import IconBtn from "../components/IconBtn";
 import { RiEditBoxLine } from "react-icons/ri";
 import { formattedDate } from "../helper";
+import { getUserDetailsApi } from "../apis/profile";
+import toast from "react-hot-toast";
+import { setUser } from "../redux/slices/profileSlice";
 
 const MyProfile = () => {
   const { user } = useSelector((state) => state.profile);
-
-  console.log(user);
+  const { token } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const fetchUserDetails = async () => {
+    try {
+      const response = await getUserDetailsApi(token);
+
+      if (!response.success) {
+        return toast.error(response.message);
+      }
+
+      localStorage.setItem("user", JSON.stringify(response.data));
+      dispatch(setUser(response.data));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchUserDetails();
+  }, []);
+
   return (
     <>
       <h1 className="mb-14 text-3xl font-medium text-richblack-5"></h1>

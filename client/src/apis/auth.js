@@ -52,3 +52,17 @@ export const resetPasswordApi = async (formData) => {
     return catchError(error);
   }
 };
+
+export const updatePasswordApi = async (formData, token) => {
+  try {
+    const response = await axios.put(`${AUTH_URL}/change-password`, formData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    return catchError(error);
+  }
+};

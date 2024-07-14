@@ -401,3 +401,11 @@ export const contactDetails = [
     details: "+123 456 7869",
   },
 ];
+
+export const genders = [
+  "Male",
+  "Female",
+  "Non-Binary",
+  "Prefer not to say",
+  "Other",
+];
