@@ -9,6 +9,7 @@ import Dashboard from "./pages/Dashboard";
 import MyProfile from "./pages/MyProfile";
 import UpdatePassword from "./pages/UpdatePassword";
 import About from "./pages/About";
+import ContactPage from "./pages/ContactPage";
 
 const App = () => {
   return (
@@ -28,6 +29,9 @@ const App = () => {
         {/* ABOUT */}
 
         <Route path="/about" element={<About />} />
+
+        {/* CONTACT */}
+        <Route path="/contact" element={<ContactPage />} />
 
         {/* DASHBOARD */}
         <Route element={<Dashboard />}>
