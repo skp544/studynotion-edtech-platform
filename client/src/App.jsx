@@ -8,6 +8,7 @@ import VerifyEmail from "./pages/VerifyEmail";
 import Dashboard from "./pages/Dashboard";
 import MyProfile from "./pages/MyProfile";
 import UpdatePassword from "./pages/UpdatePassword";
+import About from "./pages/About";
 
 const App = () => {
   return (
@@ -23,6 +24,10 @@ const App = () => {
         <Route path="/verify-email" element={<VerifyEmail />} />
 
         <Route path="/update-password/:id" element={<UpdatePassword />} />
+
+        {/* ABOUT */}
+
+        <Route path="/about" element={<About />} />
 
         {/* DASHBOARD */}
         <Route element={<Dashboard />}>
