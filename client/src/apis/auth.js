@@ -31,3 +31,24 @@ export const loginApi = async (formData) => {
     return catchError(error);
   }
 };
+
+export const resetPasswordTokenApi = async (formData) => {
+  try {
+    const response = await axios.post(
+      `${AUTH_URL}/reset-password-token`,
+      formData
+    );
+    return response.data;
+  } catch (error) {
+    return catchError(error);
+  }
+};
+
+export const resetPasswordApi = async (formData) => {
+  try {
+    const response = await axios.post(`${AUTH_URL}/reset-password`, formData);
+    return response.data;
+  } catch (error) {
+    return catchError(error);
+  }
+};

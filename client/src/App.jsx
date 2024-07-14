@@ -7,6 +7,7 @@ import ForgotPasswordPage from "./pages/ForgotPasswordPage";
 import VerifyEmail from "./pages/VerifyEmail";
 import Dashboard from "./pages/Dashboard";
 import MyProfile from "./pages/MyProfile";
+import UpdatePassword from "./pages/UpdatePassword";
 
 const App = () => {
   return (
@@ -20,6 +21,8 @@ const App = () => {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/forgot-password" element={<ForgotPasswordPage />} />
         <Route path="/verify-email" element={<VerifyEmail />} />
+
+        <Route path="/update-password/:id" element={<UpdatePassword />} />
 
         {/* DASHBOARD */}
         <Route element={<Dashboard />}>

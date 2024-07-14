@@ -2,12 +2,36 @@ import React, { useState } from "react";
 import { BiArrowBack } from "react-icons/bi";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { resetPasswordTokenApi } from "../apis/auth";
+import toast from "react-hot-toast";
 
 const ForgotPasswordPage = () => {
   const [email, setEmail] = useState("");
   const [emailSent, setEmailSent] = useState(false);
   const dispatch = useDispatch();
-  const { loading } = useSelector((state) => state.auth);
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const formData = {
+      email,
+    };
+
+    setLoading(true);
+
+    const response = await resetPasswordTokenApi(formData);
+
+    setLoading(false);
+    if (!response.success) {
+      return toast.error(response.message);
+    }
+
+    toast.success(response.message);
+    setEmailSent(true);
+
+    console.log(response);
+  };
 
   return (
     <div className="grid min-h-[calc(100vh-3.5rem)] place-items-center">
@@ -25,7 +49,7 @@ const ForgotPasswordPage = () => {
                 : `We have sent the reset email to ${email}`}
             </p>
           </div>
-          <form action="">
+          <form action="" onSubmit={handleSubmit}>
             {!emailSent && (
               <label className="w-full">
                 <p className="mb-1 text-[0.875rem] leading-[1.375rem] text-richblack-5">
