@@ -68,3 +68,17 @@ export const getUserDetailsApi = async (token) => {
     return catchError(error);
   }
 };
+
+export const getEnrolledCoursesApi = async (token) => {
+  try {
+    const response = await axios.get(`${PROFILE_URL}/get-enrolled-courses`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    return catchError(error);
+  }
+};
