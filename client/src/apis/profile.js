@@ -82,3 +82,17 @@ export const getEnrolledCoursesApi = async (token) => {
     return catchError(error);
   }
 };
+
+export const getInstructorDashboardApi = async (token) => {
+  try {
+    const response = await axios.get(`${PROFILE_URL}/instructor-dashboard`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    return catchError(error);
+  }
+};

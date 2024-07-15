@@ -80,12 +80,12 @@ const Homepage = () => {
             }
             ctabtn1={{
               btnText: "Try it Yourself",
-              link: "/signup",
+              link: "/sign-up",
               active: true,
             }}
             ctabtn2={{
               btnText: "Learn More",
-              link: "/signup",
+              link: "/about",
               active: false,
             }}
             codeColor={"text-yellow-25"}
@@ -109,12 +109,12 @@ const Homepage = () => {
             }
             ctabtn1={{
               btnText: "Continue Lesson",
-              link: "/signup",
+              link: "/sign-up",
               active: true,
             }}
             ctabtn2={{
               btnText: "Learn More",
-              link: "/signup",
+              link: "/about",
               active: false,
             }}
             codeColor={"text-white"}
