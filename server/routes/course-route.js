@@ -14,7 +14,7 @@ const router = express.Router();
 
 // /api/v1/course
 
-router.post("/create", isAuth, isInstructor, createCourse);
+router.post("/create", isAuth, isInstructor, createCourse); //tested
 
 router.get("/all-courses", getAllCourses);
 
@@ -24,12 +24,12 @@ router.post("/get-course", getCourseDetails);
 
 router.post("/get-full-course-details", isAuth, getFullCourseDetails);
 
-router.post(
+router.get(
   "/get-instructor-course",
   isAuth,
   isInstructor,
   getInstructorDetails
-);
+); // tested
 
 router.delete("/delete-course", isAuth, isInstructor, deleteCourse);
 

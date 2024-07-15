@@ -230,7 +230,7 @@ export const login = async (req, res) => {
       .cookie("token", token, options)
       .status(200)
       .json({
-        success: false,
+        success: true,
         message: "Login Successfull!",
         data: {
           _id: user._id,
@@ -243,6 +243,7 @@ export const login = async (req, res) => {
           contactNumber: user.additionalDetails.contactNumber,
           dateOfBirth: user.additionalDetails.dateOfBirth,
           about: user.additionalDetails.about,
+          accountType: user.accountType,
         },
         token,
       });
@@ -260,7 +261,7 @@ export const changePassword = async (req, res) => {
   try {
     const userDetails = await User.findById(req.user.id);
 
-    const { oldPassword, newPassword, confirmNewPassword } = req.body;
+    const { oldPassword, newPassword } = req.body;
 
     const isPasswordMatch = await bcrypt.compare(
       oldPassword,
@@ -269,17 +270,17 @@ export const changePassword = async (req, res) => {
 
     if (!isPasswordMatch) {
       return res.status(401).json({
-        success: true,
+        success: false,
         message: "The password is incorrect",
       });
     }
 
-    if (newPassword !== confirmNewPassword) {
-      return res.status(400).json({
-        success: false,
-        message: "The password and confrim password does not match",
-      });
-    }
+    // if (newPassword !== confirmNewPassword) {
+    //   return res.status(400).json({
+    //     success: false,
+    //     message: "The password and confrim password does not match",
+    //   });
+    // }
 
     // update password indb
     const encryptedPassword = await bcrypt.hash(newPassword, 10);

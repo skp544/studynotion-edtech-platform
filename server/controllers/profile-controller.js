@@ -100,7 +100,7 @@ export const deleteAccount = async (req, res) => {
   }
 };
 
-export const getUserDetails = async (req, res) => {
+export const getFullUserDetails = async (req, res) => {
   try {
     const id = req.user.id;
 
@@ -248,10 +248,42 @@ export const instructorDashboard = async (req, res) => {
     res.status(200).json({
       success: true,
       message: "Fetched Successfully",
-      courses: courseData,
+      data: courseData,
     });
   } catch (error) {
     console.error(error);
     res.status(500).json({ success: false, message: "Server Error" });
+  }
+};
+
+export const getUserDetails = async (req, res) => {
+  try {
+    const id = req.user.id;
+
+    const user = await User.findById(id).populate("additionalDetails").exec();
+
+    return res.status(200).json({
+      success: true,
+      message: "Data fetched successfully!",
+      data: {
+        _id: user._id,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
+        profileUrl: user.profileUrl,
+        profileId: user.additionalDetails._id,
+        gender: user.additionalDetails.gender,
+        contactNumber: user.additionalDetails.contactNumber,
+        dateOfBirth: user.additionalDetails.dateOfBirth,
+        about: user.additionalDetails.about,
+        accountType: user.accountType,
+      },
+    });
+  } catch (error) {
+    console.log("Error in get user details ");
+    return res.status(500).json({
+      success: false,
+      message: error.message || "Failed to fetch data",
+    });
   }
 };

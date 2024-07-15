@@ -2,6 +2,7 @@ import express from "express";
 import {
   deleteAccount,
   getEnrolledCourse,
+  getFullUserDetails,
   getUserDetails,
   instructorDashboard,
   updateDisplayPicture,
@@ -16,7 +17,9 @@ router.put("/update-profile", isAuth, updateProfile); //tested
 
 router.delete("/delete", isAuth, deleteAccount);
 
-router.get("/get-all-details", isAuth, getUserDetails); // tested
+router.get("/get-all-details", isAuth, getFullUserDetails); // tested
+
+router.get("/get-user-details", isAuth, getUserDetails);
 
 router.post("/update-display-picture", isAuth, updateDisplayPicture); // tested
 
