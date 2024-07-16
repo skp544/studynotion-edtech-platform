@@ -55,7 +55,7 @@ const EditProfile = () => {
                 id="firstName"
                 placeholder="Enter first name"
                 className="form-style"
-                {...register("firstName", { required: true })}
+                {...register("firstName")}
                 defaultValue={user?.firstName}
               />
               {errors.firstName && (
@@ -74,7 +74,7 @@ const EditProfile = () => {
                 id="lastName"
                 placeholder="Enter first name"
                 className="form-style"
-                {...register("lastName", { required: true })}
+                {...register("lastName")}
                 defaultValue={user?.lastName}
               />
               {errors.lastName && (
@@ -95,16 +95,7 @@ const EditProfile = () => {
                 name="dateOfBirth"
                 id="dateOfBirth"
                 className="form-style"
-                {...register("dateOfBirth", {
-                  required: {
-                    value: true,
-                    message: "Please enter your Date of Birth.",
-                  },
-                  max: {
-                    value: new Date().toISOString().split("T")[0],
-                    message: "Date of Birth cannot be in the future.",
-                  },
-                })}
+                {...register("dateOfBirth")}
                 defaultValue={user?.dateOfBirth}
               />
               {errors.dateOfBirth && (
@@ -122,7 +113,7 @@ const EditProfile = () => {
                 name="gender"
                 id="gender"
                 className="form-style"
-                {...register("gender", { required: true })}
+                {...register("gender")}
                 defaultValue={user?.gender}
               >
                 {genders.map((ele, i) => {
@@ -152,14 +143,7 @@ const EditProfile = () => {
                 id="contactNumber"
                 placeholder="Enter Contact Number"
                 className="form-style"
-                {...register("contactNumber", {
-                  required: {
-                    value: true,
-                    message: "Please enter your Contact Number.",
-                  },
-                  maxLength: { value: 12, message: "Invalid Contact Number" },
-                  minLength: { value: 10, message: "Invalid Contact Number" },
-                })}
+                {...register("contactNumber")}
                 defaultValue={user?.contactNumber}
               />
               {errors.contactNumber && (
@@ -178,7 +162,7 @@ const EditProfile = () => {
                 id="about"
                 placeholder="Enter Bio Details"
                 className="form-style"
-                {...register("about", { required: true })}
+                {...register("about")}
                 defaultValue={user?.about}
               />
               {errors.about && (

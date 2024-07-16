@@ -2,11 +2,11 @@ import axios from "axios";
 import { BASE_URL } from "./client";
 import { catchError } from "../helper";
 
-const COURSE_URL = `${BASE_URL}/course`;
+const SECTION_URL = `${BASE_URL}/section`;
 
-export const getInstructorCourseApi = async (token) => {
+export const createSectionApi = async (formData, token) => {
   try {
-    const response = await axios.get(`${COURSE_URL}/get-instructor-course`, {
+    const response = await axios.post(`${SECTION_URL}/create`, formData, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -18,18 +18,16 @@ export const getInstructorCourseApi = async (token) => {
   }
 };
 
-export const addCourseApi = async (formData, token) => {
+export const updateSectionApi = async (formData, token) => {
   try {
-    const response = await axios.post(`${COURSE_URL}/create`, formData, {
+    const response = await axios.put(`${SECTION_URL}/update`, formData, {
       headers: {
         Authorization: `Bearer ${token}`,
-        "Content-Type": "multipart/form-data",
       },
     });
 
-    return response.data;
+    response.data;
   } catch (error) {
-    console.log(error);
     return catchError(error);
   }
 };
