@@ -13,3 +13,16 @@ export const getAllCategoriesApi = async () => {
     return catchError(error);
   }
 };
+
+export const getCategoryPageDetailsApi = async (formData) => {
+  try {
+    const response = await axios.post(
+      `${CATEGORY_URL}/get-category-details`,
+      formData
+    );
+
+    return response.data;
+  } catch (error) {
+    return catchError(error);
+  }
+};

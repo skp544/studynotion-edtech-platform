@@ -1,3 +1,4 @@
+import { getRandomInt } from "../helper/index.js";
 import Category from "../models/category-model.js";
 
 export const createCategory = async (req, res) => {
@@ -49,16 +50,16 @@ export const categoryPageDetails = async (req, res) => {
     const { categoryId } = req.body;
 
     // get Courses for the specified category
-    const categoryDetails = await Category.findById(categoryId)
+    const selectedCategory = await Category.findById(categoryId)
       .populate({
-        path: "Courses",
+        path: "course",
         match: { status: "Published" },
-        populate: "RatingAndReview",
+        populate: "ratingAndReviews",
       })
       .exec();
 
     // handle the case when the category is not found
-    if (!categoryDetails) {
+    if (!selectedCategory) {
       return res.status(404).json({
         success: false,
         message: "Data not found!",
@@ -67,7 +68,7 @@ export const categoryPageDetails = async (req, res) => {
 
     // handle the case when the category is not found
 
-    if (!categoryDetails.course.length === 0) {
+    if (!selectedCategory.course.length === 0) {
       return res.status(404).json({
         success: false,
         message: "No Courses Found for the selected category",
@@ -85,7 +86,7 @@ export const categoryPageDetails = async (req, res) => {
         ._id
     )
       .populate({
-        path: "Courses",
+        path: "course",
         match: { status: "Published" },
       })
       .exec();
@@ -94,7 +95,7 @@ export const categoryPageDetails = async (req, res) => {
 
     const allCategories = await Category.find()
       .populate({
-        path: "courses",
+        path: "course",
         match: { status: "Published" },
         populate: {
           path: "instructor",

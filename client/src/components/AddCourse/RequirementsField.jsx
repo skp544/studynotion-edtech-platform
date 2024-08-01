@@ -13,6 +13,19 @@ const RequirementsField = ({
   const [requirement, setRequirement] = useState("");
   const [requirementsList, setRequirementsList] = useState([]);
 
+  useEffect(() => {
+    if (editCourse && Array.isArray(course?.instructions)) {
+      setRequirementsList(course?.instructions);
+    }
+    register(name, { required: true, validate: (value) => value.length > 0 });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    setValue(name, requirementsList);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [requirementsList]);
+
   const handleAddRequirement = () => {
     if (requirement) {
       setRequirementsList([...requirementsList, requirement]);
@@ -26,18 +39,6 @@ const RequirementsField = ({
     setRequirementsList(updatedRequirements);
   };
 
-  useEffect(() => {
-    if (editCourse) {
-      setRequirementsList(course?.instructions);
-    }
-    register(name, { required: true, validate: (value) => value.length > 0 });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  useEffect(() => {
-    setValue(name, requirementsList);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [requirementsList]);
   return (
     <div className="flex flex-col space-y-2">
       <label className="text-sm text-richblack-5" htmlFor={name}>
@@ -61,12 +62,12 @@ const RequirementsField = ({
       </div>
       {requirementsList?.length > 0 && (
         <ul className="mt-2 list-inside list-disc">
-          {requirementsList?.map((requirement, index) => (
+          {requirementsList.map((requirement, index) => (
             <li key={index} className="flex items-center text-richblack-5">
               <span>{requirement}</span>
               <button
                 type="button"
-                className="ml-2 text-xs text-pure-greys-300 "
+                className="ml-2 text-xs text-pure-greys-300"
                 onClick={() => handleRemoveRequirement(index)}
               >
                 clear

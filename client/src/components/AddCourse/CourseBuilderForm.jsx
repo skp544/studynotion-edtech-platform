@@ -28,37 +28,24 @@ const CourseBuilderForm = () => {
   const dispatch = useDispatch();
 
   const handleOnSubmit = async (data) => {
-    // console.log(data)
     setLoading(true);
-    console.log(data, course);
 
-    let result;
+    const response = await createSectionApi(
+      {
+        sectionName: data.sectionName,
+        courseId: course._id,
+      },
+      token
+    );
 
-    // if (editSectionName) {
-    //   result = await updateSection(
-    //     {
-    //       sectionName: data.sectionName,
-    //       sectionId: editSectionName,
-    //       courseId: course._id,
-    //     },
-    //     token
-    //   )
-    //   // console.log("edit", result)
-    // } else {
-    // result = await createSectionApi(
-    //   {
-    //     sectionName: data.sectionName,
-    //     courseId: course._id,
-    //   },
-    //   token
-    // )
-    // }
-    if (result) {
-      // console.log("section result", result)
-      dispatch(setCourse(result));
-      setEditSectionName(null);
-      setValue("sectionName", "");
+    if (!response.success) {
+      return toast.error(response.message);
     }
+
+    dispatch(setCourse(response.data));
+    setEditSectionName(null);
+    setValue("sectionName", "");
+
     setLoading(false);
   };
 
@@ -77,12 +64,12 @@ const CourseBuilderForm = () => {
   };
 
   const goToNext = () => {
-    if (course.courseContent.length === 0) {
+    if (course?.courseContent?.length === 0) {
       toast.error("Please add atleast one section");
       return;
     }
     if (
-      course.courseContent.some((section) => section.subSection.length === 0)
+      course?.courseContent?.some((section) => section.subSection.length === 0)
     ) {
       toast.error("Please add atleast one lecture in each section");
       return;
@@ -140,7 +127,7 @@ const CourseBuilderForm = () => {
           )}
         </div>
       </form>
-      {course?.courseContent.length > 0 && (
+      {course?.courseContent?.length > 0 && (
         <NestedView handleChangeEditSectionName={handleChangeEditSectionName} />
       )}
 

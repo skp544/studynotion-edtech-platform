@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, matchPath, useLocation } from "react-router-dom";
 import logo from "../assets/logos/Logo-Full-Light.png";
 import { ACCOUNT_TYPE, NavbarLinks } from "../data";
@@ -6,6 +6,8 @@ import { BsChevronDown } from "react-icons/bs";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { useSelector } from "react-redux";
 import ProfileDropdown from "./ProfileDropdown";
+import { getAllCategoriesApi } from "../apis/category";
+import toast from "react-hot-toast";
 
 const Navbar = () => {
   const location = useLocation();
@@ -20,6 +22,25 @@ const Navbar = () => {
   const matchRoute = (route) => {
     return matchPath({ path: route }, location.pathname);
   };
+
+  const fetchData = async () => {
+    setLoading(true);
+
+    const response = await getAllCategoriesApi();
+
+    if (!response.success) {
+      return toast.error(response.message);
+    }
+
+    setSubLinks(response.data);
+
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   return (
     <div
       className={`flex h-14 items-center justify-center border-b-[1px] border-b-richblack-700 ${
@@ -55,9 +76,7 @@ const Navbar = () => {
                         ) : subLinks.length ? (
                           <>
                             {subLinks
-                              ?.filter(
-                                (subLink) => subLink?.courses?.length > 0
-                              )
+                              ?.filter((subLink) => subLink?.course?.length > 0)
                               ?.map((subLink, i) => (
                                 <Link
                                   to={`/catalog/${subLink.name
@@ -67,7 +86,9 @@ const Navbar = () => {
                                   className="rounded-lg bg-transparent py-4 pl-4 hover:bg-richblack-50"
                                   key={i}
                                 >
-                                  <p>{subLink.name}</p>
+                                  <p className="text-richblack-800">
+                                    {subLink.name}
+                                  </p>
                                 </Link>
                               ))}
                           </>

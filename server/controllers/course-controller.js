@@ -21,7 +21,7 @@ export const createCourse = async (req, res) => {
       instructions: _instructions,
     } = req.body;
 
-    const thumbnail = req.files.thumbnailImage;
+    const thumbnail = req.files?.thumbnailImage;
 
     // Convert the tag and instructions from stringified Array to Array
     const tag = JSON.parse(_tag);
@@ -129,6 +129,7 @@ export const editCourse = async (req, res) => {
 
     const updates = req.body;
 
+    // Find the course by ID
     const course = await Course.findById(courseId);
 
     if (!course) {
@@ -138,7 +139,8 @@ export const editCourse = async (req, res) => {
       });
     }
 
-    if (req.files) {
+    // Handle file uploads if any
+    if (req.files && req.files.thumbnailImage) {
       const thumbnail = req.files.thumbnailImage;
       const thumbnailImage = await uploadImageToCloudinary(
         thumbnail,
@@ -147,9 +149,10 @@ export const editCourse = async (req, res) => {
       course.thumbnail = thumbnailImage.secure_url;
     }
 
-    // Update only the fields that are present in the request body
+    // Update fields based on the request body
     for (const key in updates) {
       if (updates.hasOwnProperty(key)) {
+        // Parse JSON fields if necessary
         if (key === "tag" || key === "instructions") {
           course[key] = JSON.parse(updates[key]);
         } else {
@@ -158,28 +161,28 @@ export const editCourse = async (req, res) => {
       }
     }
 
+    // Save the updated course
     await course.save();
 
-    const updatedCourse = await Course.findOne({
-      _id: courseId,
-    })
+    // Find the updated course with populated fields
+    const updatedCourse = await Course.findOne({ _id: courseId })
       .populate({
         path: "instructor",
         populate: {
-          path: "additionalDetails",
+          path: "additionalDetails", // Assuming User schema has additionalDetails reference
         },
       })
       .populate("category")
-      .populate("RatingAndReview")
+      .populate("ratingAndReviews") // Correct field name for population
       .populate({
         path: "courseContent",
         populate: {
-          path: "subSection",
+          path: "subSection", // Assuming Section schema has subSection reference
         },
       })
       .exec();
 
-    res.json({
+    return res.json({
       success: true,
       message: "Course updated successfully",
       data: updatedCourse,
@@ -188,7 +191,7 @@ export const editCourse = async (req, res) => {
     console.log("ERROR IN EDIT COURSE");
     console.log(error);
 
-    return res.json({
+    return res.status(500).json({
       success: false,
       message: error.message || "Failed to edit course",
     });

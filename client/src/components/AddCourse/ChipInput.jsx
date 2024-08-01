@@ -26,7 +26,6 @@ const ChipInput = ({
 
   // Function to handle user input when chips are added
   const handleKeyDown = (event) => {
-    console.log(chips);
     // Check if user presses "Enter" or ","
     if (event.key === "Enter" || event.key === ",") {
       // Prevent the default behavior of the event
@@ -34,7 +33,7 @@ const ChipInput = ({
       // Get the input value and remove any leading/trailing spaces
       const chipValue = event.target.value.trim();
 
-      console.log(chipValue);
+      // console.log(chipValue);
       // Check if the input value exists and is not already in the chips array
       if (chipValue && !chips.includes(chipValue)) {
         // Add the chip to the array and clear the input
@@ -66,23 +65,24 @@ const ChipInput = ({
 
       {/* Render chips and input */}
       <div className="flex w-full flex-wrap gap-y-2">
-        {chips.map((chip, index) => (
-          <div
-            key={index}
-            className="m-1 flex items-center rounded-full bg-yellow-400 px-2 py-1 text-sm text-richblack-5"
-          >
-            {/* Render the chip value */}
-            {chip}
-            {/* Render the button to delete the chip */}
-            <button
-              type="button"
-              className="ml-2 focus:outline-none"
-              onClick={() => handleDeleteChip(index)}
+        {chips &&
+          chips?.map((chip, index) => (
+            <div
+              key={index}
+              className="m-1 flex items-center rounded-full bg-yellow-400 px-2 py-1 text-sm text-richblack-5"
             >
-              <MdClose className="text-sm" />
-            </button>
-          </div>
-        ))}
+              {/* Render the chip value */}
+              {chip}
+              {/* Render the button to delete the chip */}
+              <button
+                type="button"
+                className="ml-2 focus:outline-none"
+                onClick={() => handleDeleteChip(index)}
+              >
+                <MdClose className="text-sm" />
+              </button>
+            </div>
+          ))}
 
         <input
           id={name}

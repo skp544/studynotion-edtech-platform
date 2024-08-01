@@ -6,7 +6,7 @@ import { RiEditBoxLine } from "react-icons/ri";
 import { formattedDate } from "../helper";
 import { getUserDetailsApi } from "../apis/profile";
 import toast from "react-hot-toast";
-import { setUser } from "../redux/slices/profileSlice";
+import { setEmptyUser, setUser } from "../redux/slices/profileSlice";
 
 const MyProfile = () => {
   const { user } = useSelector((state) => state.profile);
@@ -19,6 +19,13 @@ const MyProfile = () => {
       const response = await getUserDetailsApi(token);
 
       if (!response.success) {
+        dispatch(setEmptyUser());
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+        localStorage.clear();
+
+        navigate("/login");
+
         return toast.error(response.message);
       }
 
@@ -133,7 +140,9 @@ const MyProfile = () => {
             <div>
               <p className="mb-2 text-sm text-richblack-600">Date Of Birth</p>
               <p className="text-sm font-medium text-richblack-5">
-                {formattedDate(user?.dateOfBirth) ?? "Add Date Of Birth"}
+                {user?.dateOfBirth
+                  ? formattedDate(user?.dateOfBirth)
+                  : "Add Date Of Birth"}
               </p>
             </div>
           </div>

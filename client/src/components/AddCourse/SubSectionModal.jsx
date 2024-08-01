@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setCourse } from "../../redux/slices/courseSlice";
 import { RxCross2 } from "react-icons/rx";
 import IconBtn from "../IconBtn";
+import Upload from "./Upload";
+import { createSubSectionApi } from "../../apis/sub-section";
+import toast from "react-hot-toast";
 
 const SubSectionModal = ({
   modalData,
@@ -11,6 +14,7 @@ const SubSectionModal = ({
   add = false,
   view = false,
   edit = false,
+  setSection,
 }) => {
   const {
     register,
@@ -70,7 +74,7 @@ const SubSectionModal = ({
   };
 
   const onSubmit = async (data) => {
-    // console.log(data)
+    console.log(data);
     if (view) return;
 
     if (edit) {
@@ -88,17 +92,23 @@ const SubSectionModal = ({
     formData.append("description", data.lectureDesc);
     formData.append("video", data.lectureVideo);
     setLoading(true);
-    // const result = await createSubSection(formData, token)
-    // if (result) {
-    //   // update the structure of course
-    //   const updatedCourseContent = course.courseContent.map((section) =>
-    //     section._id === modalData ? result : section
-    //   )
-    //   const updatedCourse = { ...course, courseContent: updatedCourseContent }
-    //   dispatch(setCourse(updatedCourse))
-    // }
-    setModalData(null);
+
+    const response = await createSubSectionApi(formData, token);
+
+    if (!response.success) {
+      return toast.error(response.message);
+    }
+
+    const updatedCourseContent = course.courseContent.map((section) =>
+      section._id === modalData ? response.data : section
+    );
+
+    const updatedCourse = { ...course, courseContent: updatedCourseContent };
+    dispatch(setCourse(updatedCourse));
+
+    toast.success(response.message);
     setLoading(false);
+    setSection(false);
   };
 
   useEffect(() => {
@@ -109,6 +119,7 @@ const SubSectionModal = ({
       setValue("lectureVideo", modalData.videoUrl);
     }
   }, []);
+
   return (
     <div className="fixed inset-0 z-[1000] !mt-0 grid h-screen w-screen place-items-center overflow-auto bg-white bg-opacity-0 backdrop-blur-sm">
       <div className="my-10 w-11/12 max-w-[700px] rounded-lg border border-richblack-400 bg-richblack-800">

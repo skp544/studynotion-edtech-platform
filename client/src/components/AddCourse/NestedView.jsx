@@ -7,6 +7,7 @@ import { MdEdit } from "react-icons/md";
 import { RxDropdownMenu } from "react-icons/rx";
 import { AiFillCaretDown } from "react-icons/ai";
 import ConfirmationModal from "../ConfirmationModal";
+import SubSectionModal from "./SubSectionModal";
 
 const NestedView = ({ handleChangeEditSectionName }) => {
   const { course } = useSelector((state) => state.course);
@@ -150,17 +151,20 @@ const NestedView = ({ handleChangeEditSectionName }) => {
         <SubSectionModal
           modalData={addSubSection}
           setModalData={setAddSubsection}
+          setSection={setAddSubsection}
           add={true}
         />
       ) : viewSubSection ? (
         <SubSectionModal
           modalData={viewSubSection}
           setModalData={setViewSubSection}
+          setSection={setViewSubSection}
           view={true}
         />
       ) : editSubSection ? (
         <SubSectionModal
           modalData={editSubSection}
+          setSection={setEditSubSection}
           setModalData={setEditSubSection}
           edit={true}
         />

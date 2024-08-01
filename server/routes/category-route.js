@@ -10,10 +10,10 @@ const router = express.Router();
 
 // /api/v1/category
 
-router.post("/create", isAuth, isAdmin, createCategory);
+router.post("/create", isAuth, isAdmin, createCategory); // tested
 
-router.get("/all-categories", showAllCategories);
+router.get("/all-categories", showAllCategories); // tested
 
-router.post("/get-category-details", categoryPageDetails);
+router.post("/get-category-details", categoryPageDetails); // tested
 
 export default router;

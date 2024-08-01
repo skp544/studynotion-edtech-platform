@@ -33,3 +33,14 @@ export const addCourseApi = async (formData, token) => {
     return catchError(error);
   }
 };
+
+export const editCourseApi = async (formData, token) => {
+  const response = await axios.put(`${COURSE_URL}/edit-course`, formData, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "multipart/form-data",
+    },
+  });
+
+  return response.data;
+};

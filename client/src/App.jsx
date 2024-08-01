@@ -19,6 +19,7 @@ import Instructor from "./pages/Instructor";
 import AddCourse from "./pages/AddCourse";
 import MyCourses from "./pages/MyCourses";
 import EditCourse from "./pages/EditCourse";
+import CatalogPage from "./pages/CatalogPage";
 
 const App = () => {
   const { user } = useSelector((state) => state.profile);
@@ -34,6 +35,8 @@ const App = () => {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/forgot-password" element={<ForgotPasswordPage />} />
         <Route path="/verify-email" element={<VerifyEmail />} />
+
+        <Route path="catalog/:catalogName" element={<CatalogPage />} />
 
         <Route path="/update-password/:id" element={<UpdatePassword />} />
 
