@@ -44,3 +44,13 @@ export const editCourseApi = async (formData, token) => {
 
   return response.data;
 };
+
+export const getCourseDetails = async (formData) => {
+  try {
+    const response = await axios.post(`${COURSE_URL}/get-course`, formData);
+
+    return response.data;
+  } catch (error) {
+    return catchError(error);
+  }
+};

@@ -20,6 +20,10 @@ import AddCourse from "./pages/AddCourse";
 import MyCourses from "./pages/MyCourses";
 import EditCourse from "./pages/EditCourse";
 import CatalogPage from "./pages/CatalogPage";
+import Error from "./pages/Error";
+import CourseDetails from "./pages/CourseDetails";
+import ViewCourse from "./pages/ViewCourse";
+import VideoDetails from "./pages/VideoDetails";
 
 const App = () => {
   const { user } = useSelector((state) => state.profile);
@@ -29,24 +33,18 @@ const App = () => {
       <Navbar />
       <Routes>
         {/* AUTH */}
-
         <Route path="/" element={<Homepage />} />
         <Route path="/sign-up" element={<SignupPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/forgot-password" element={<ForgotPasswordPage />} />
         <Route path="/verify-email" element={<VerifyEmail />} />
-
         <Route path="catalog/:catalogName" element={<CatalogPage />} />
-
         <Route path="/update-password/:id" element={<UpdatePassword />} />
-
+        <Route path="/courses/:courseId" element={<CourseDetails />} />
         {/* ABOUT */}
-
         <Route path="/about" element={<About />} />
-
         {/* CONTACT */}
         <Route path="/contact" element={<ContactPage />} />
-
         {/* DASHBOARD */}
         <Route element={<Dashboard />}>
           <Route path="/dashboard/my-profile" element={<MyProfile />} />
@@ -71,6 +69,16 @@ const App = () => {
               <Route
                 path="dashboard/edit-course/:courseId"
                 element={<EditCourse />}
+              />
+            </>
+          )}
+        </Route>
+        <Route element={<ViewCourse />}>
+          {user?.accountType === ACCOUNT_TYPE.STUDENT && (
+            <>
+              <Route
+                path="view-course/:courseId/section/:sectionId/sub-section/:subSectionId"
+                element={<VideoDetails />}
               />
             </>
           )}

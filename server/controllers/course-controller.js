@@ -233,7 +233,7 @@ export const getCourseDetails = async (req, res) => {
   try {
     const { courseId } = req.body;
 
-    const courseDetails = await Course.find({ _id: courseId })
+    const courseDetails = await Course.findOne({ _id: courseId })
       .populate({
         path: "instructor",
         populate: {
@@ -241,7 +241,7 @@ export const getCourseDetails = async (req, res) => {
         },
       })
       .populate("category")
-      .populate("RatingAndReview")
+      .populate("ratingAndReviews")
       .populate({
         path: "courseContent",
         populate: {
@@ -257,6 +257,10 @@ export const getCourseDetails = async (req, res) => {
         message: `Cannot find the coruse with ${courseId}`,
       });
     }
+
+    // return res.json({ data: courseDetails });
+
+    // console.log(courseDetails.courseContent);
 
     let totalDurationInSeconds = 0;
     courseDetails.courseContent.forEach((content) => {
@@ -278,6 +282,7 @@ export const getCourseDetails = async (req, res) => {
   } catch (error) {
     console.log("ERROR IN GET COURSE");
 
+    console.log(error);
     return res.json({
       success: false,
       message: error.message || "Failed to create course",

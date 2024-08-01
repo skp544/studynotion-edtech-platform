@@ -64,7 +64,7 @@ const Navbar = () => {
                       className={`group relative flex cursor-pointer items-center gap-1 ${
                         matchRoute("/catalog/:catalogName")
                           ? "text-yellow-25"
-                          : "text-richblack-25"
+                          : "text-richblack-25 hover:text-yellow-25"
                       }`}
                     >
                       <p>{link.title}</p>
@@ -86,7 +86,7 @@ const Navbar = () => {
                                   className="rounded-lg bg-transparent py-4 pl-4 hover:bg-richblack-50"
                                   key={i}
                                 >
-                                  <p className="text-richblack-800">
+                                  <p className="text-richblack-800 ">
                                     {subLink.name}
                                   </p>
                                 </Link>
@@ -104,7 +104,7 @@ const Navbar = () => {
                       className={`${
                         matchRoute(link?.path)
                           ? "text-yellow-25"
-                          : "text-richblack-25"
+                          : "text-richblack-25 hover:text-yellow-25"
                       }`}
                     >
                       {link.title}
