@@ -15,7 +15,6 @@ export const sendOTP = async (req, res) => {
 
     // check user is present or not
     const checkUserPresent = await User.findOne({ email });
-
     if (checkUserPresent) {
       return res.status(401).json({
         success: false,
@@ -31,7 +30,6 @@ export const sendOTP = async (req, res) => {
     });
 
     // check unique otp or not
-
     let result = await OTP.findOne({ otp });
 
     while (result) {
@@ -63,7 +61,6 @@ export const sendOTP = async (req, res) => {
 };
 
 // sign up
-
 export const signUp = async (req, res) => {
   try {
     const {
